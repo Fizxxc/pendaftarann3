@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Info Pendaftaran | HUT RI 17 Agustus</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Outfit', sans-serif;
+      background-image: url('logo.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    .fade-in {
+      animation: fadeIn 1s ease-in-out both;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .bg-glass {
+      background: rgba(255, 255, 255, 0.438);
+      backdrop-filter: blur(10px);
+    }
+  </style>
+</head>
+<body class="min-h-screen text-gray-800 flex items-center justify-center px-4 py-12">
+
+  <div class="bg-glass rounded-2xl shadow-2xl max-w-2xl w-full p-8 fade-in">
+    <h1 class="text-3xl font-bold text-center mb-6 text-red-800">Info</h1>
+
+    <ul class="space-y-4 list-disc list-inside text-gray-800 text-base leading-relaxed">
+      <p>Halo warga RT 03! 
+        <br>Dalam rangka memeriahkan HUT RI ke-80, panitia muda-mudi RT 03 membuka pendaftaran peserta lomba 17 Agustusan untuk semua tingkatan usia, dari anak-anak sampai orang tua. 
+        <br> akan dilaksanakan pada tanggal 16 dan 17 Agustus 2025, dengan berbagai kategori dan hadiah menarik!</p>
+      <p> 🧒👧 Untuk anak-anak
+        <br>🧑‍🎓 Untuk pelajar SD & SMP
+        <br>👩 Untuk ibu-ibu
+        <br>👨 Untuk bapak-bapak</p>
+        <p>Yuk ramaikan! Tunjukkan semangat kemerdekaanmu!</p>
+        <p><b>#RT03Merdeka #LombaAgustusan2025</b></p>
+      <li>Pendaftaran ditutup pada <strong>15 Agustus 2025 pukul 23:59 WIB</strong>.</li>
+    </ul>
+
+    <div class="mt-8 text-center">
+      <a href="form.html" class="inline-block bg-red-700 text-white px-6 py-3 rounded-full hover:bg-red-800 transition duration-300">
+        Lanjut ke Form Pendaftaran
+      </a>
+    </div>
+  </div>
+
+</body>
+</html>
