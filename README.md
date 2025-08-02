@@ -40,3 +40,16 @@ Aplikasi ini dibuat untuk mempermudah proses pendaftaran lomba warga RT03 secara
 - **Tailwind CSS**
 - **JavaScript Vanilla**
 - **Firebase (untuk database)**
+
+---
+
+🙌 Kontribusi
+
+Pull request sangat diterima!
+Jika Anda punya ide atau perbaikan untuk sistem pendaftaran, silakan fork dan ajukan PR.
+
+---
+
+📜 Lisensi
+
+MIT License © 2025 — FizzxDevv
