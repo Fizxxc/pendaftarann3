@@ -4,9 +4,9 @@
   "rewrites": [
     { "source": "/", "destination": "/index.html" },
     { "source": "/login", "destination": "/login.html" },
-    { "source": "/home", "destination": "/home.html" },
+    { "source": "/home", "destination": "/info.html" },
     { "source": "/admin", "destination": "/admin.html" },
-    { "source": "/rules", "destination": "/rules.html" }
+    { "source": "/form", "destination": "/form.html" }
   ],
   "cleanUrls": true,
   "trailingSlash": false,
