@@ -14,6 +14,15 @@
       background-position: center;
       background-repeat: no-repeat;
       min-height: 100vh;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background-color: rgba(255, 0, 0, 0.3);
+      z-index: 0;
     }
 
     @keyframes loading {
@@ -33,6 +42,18 @@
       }
     }
 
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     .dot {
       animation: loading 1.2s infinite;
     }
@@ -46,15 +67,25 @@
     }
 
     .glass {
-      backdrop-filter: blur(12px);
-      background-color: rgba(255, 255, 255, 0.712);
-      border: 1px solid rgba(255, 255, 255, 0.301);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(14px);
+      background-color: rgba(255, 255, 255, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+      animation: fadeInUp 1.5s ease-out;
+    }
+
+    .fade-out {
+      opacity: 0;
+      transition: opacity 1s ease;
+      pointer-events: none;
+      /* agar klik tidak tertutup saat fading */
     }
   </style>
 </head>
 
 <body class="relative text-white">
+  <!-- Overlay merah -->
+  <div class="overlay"></div>
 
   <!-- Loading Screen -->
   <div id="loadingScreen" class="absolute inset-0 flex items-center justify-center bg-white z-50">
@@ -64,32 +95,35 @@
         <div class="w-4 h-4 bg-green-600 rounded-full dot"></div>
         <div class="w-4 h-4 bg-blue-600 rounded-full dot"></div>
       </div>
-      <p class="text-gray-800 font-medium">Memuat Halaman...</p>
+      <p class="text-gray-800 font-medium animate-pulse">Memuat Halaman...</p>
     </div>
   </div>
 
   <!-- Home Page -->
-  <div id="homePage" class="hidden flex items-center justify-center min-h-screen px-6">
-    <div class="glass max-w-xl w-full text-center py-12 px-8 rounded-2xl">
-      <h1 class="text-4xl font-bold mb-4 text-red-600">HALO RT 03</h1>
-      <p class="text-lg text-red-600 mb-6">Pendaftaran Lomba 17 Agustus RT 03 telah dibuka.</p>
+  <div id="homePage" class="hidden flex items-center justify-center min-h-screen px-6 relative z-10">
+    <div class="glass max-w-xl w-full text-center py-12 px-8 rounded-2xl text-gray-800 shadow-lg">
+      <h1 class="text-4xl font-bold mb-4 text-red-700 animate-fade-in">HALO RT 03</h1>
+      <p class="text-lg mb-6 animate-fade-in delay-300">Pendaftaran Lomba 17 Agustus RT 03 telah dibuka.</p>
       <a href="info.html"
-        class="inline-block bg-red-600 text-white-600 font-semibold px-6 py-3 rounded-xl hover:bg-red-800 transition">
+        class="inline-block bg-red-600 text-white font-semibold px-6 py-3 rounded-xl hover:bg-red-700 hover:scale-105 transform transition-all duration-300 animate-fade-in delay-500">
         Lihat Info Pendaftaran
       </a>
-          <p class="text-sm text-center text-red-800">&copy; 2025 Pendaftaran 17 Agustus RT 03</p>
-    <p class="text-sm text-center text-blue-800">Devlop By : <a href="https://www.instagram.com/fizzx.docx/">FizzxDevv</a></p>
+      <div class="mt-6 text-sm text-center text-red-800 animate-fade-in delay-700">
+        &copy; 2025 Pendaftaran 17 Agustus RT 03<br />
+        Developed by: <a href="https://www.instagram.com/fizzx.docx/"
+          class="text-blue-800 hover:underline">FizzxDevv</a>
+      </div>
     </div>
   </div>
 
   <script>
-    // Tampilkan home setelah loading
+    // Show home after loading
     setTimeout(() => {
-      document.getElementById('loadingScreen').classList.add('hidden');
+      const loading = document.getElementById('loadingScreen');
+      loading.classList.add('fade-out');
       document.getElementById('homePage').classList.remove('hidden');
-    }, 2000);
+    }, 5000);
   </script>
-
 </body>
 
 </html>
