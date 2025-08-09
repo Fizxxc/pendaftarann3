@@ -3,188 +3,135 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Maintenance — Segera Kembali</title>
+  <title>Pendaftaran 17 Agustus RT 03 — Maintenance</title>
   <style>
     :root{
-      --bg1:#0f172a; /* slate-900 */
-      --bg2:#0ea5a4; /* teal */
-      --card: rgba(255,255,255,0.06);
-      --glass: rgba(255,255,255,0.06);
-      --accent: #7c3aed; /* purple */
-      --muted: rgba(255,255,255,0.75);
+      --bg1:#0f172a;
+      --bg2:#0ea5a4;
+      --accent: #7c3aed;
     }
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
       margin:0;
-      font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+      font-family:Inter,ui-sans-serif,system-ui;
       background: radial-gradient(1200px 600px at 10% 10%, rgba(124,58,237,0.12), transparent),
                   radial-gradient(900px 400px at 90% 90%, rgba(14,165,164,0.06), transparent),
                   linear-gradient(135deg,var(--bg1), #071024 40%);
       color: #e6eef8;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      display:flex;align-items:center;justify-content:center;padding:32px;
+      display:flex;align-items:center;justify-content:center;padding:16px;
     }
     .container{
-      width:100%;max-width:980px;padding:32px;border-radius:20px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      box-shadow:0 10px 30px rgba(2,6,23,0.6);backdrop-filter: blur(8px);border:1px solid rgba(255,255,255,0.04);
+      width:100%;max-width:980px;padding:32px;border-radius:20px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      box-shadow:0 10px 30px rgba(2,6,23,0.6);backdrop-filter: blur(8px);
+      border:1px solid rgba(255,255,255,0.04);
       display:grid;grid-template-columns:1fr 380px;gap:28px;align-items:center;
     }
-    @media (max-width:880px){.container{grid-template-columns:1fr;max-width:720px;padding:24px}}
-    .left{
-      padding:12px 6px;
-    }
+    @media (max-width:880px){.container{grid-template-columns:1fr;}}
     .logo{display:flex;align-items:center;gap:12px}
-    .logo .mark{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--bg2));display:flex;align-items:center;justify-content:center;font-weight:700;color:white;font-size:20px;box-shadow:0 6px 18px rgba(124,58,237,0.14)}
-    h1{margin:10px 0 6px;font-size:28px;letter-spacing:-0.02em}
-    p.lead{margin:0;color:rgba(230,238,248,0.82);max-width:52ch}
-
-    .timer{display:flex;gap:12px;margin-top:22px}
-    .timebox{background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));padding:18px;border-radius:12px;min-width:88px;text-align:center;border:1px solid rgba(255,255,255,0.03)}
-    .timebox strong{display:block;font-size:20px;font-weight:700}
+    .logo .mark{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--bg2));display:flex;align-items:center;justify-content:center;font-weight:700;color:white;font-size:20px}
+    h1{margin:10px 0 6px;font-size:28px;text-align:left}
+    p.lead{margin:0;color:rgba(230,238,248,0.82)}
+    .timer{display:flex;gap:12px;margin-top:22px;flex-wrap:wrap}
+    .timebox{background:rgba(255,255,255,0.03);padding:18px;border-radius:12px;min-width:88px;text-align:center;animation:pop 1s ease-in-out infinite alternate}
+    .timebox strong{display:block;font-size:20px;font-weight:700;transition:transform 0.3s ease}
     .timebox small{display:block;margin-top:6px;font-size:12px;color:rgba(230,238,248,0.65)}
-
-    .right{padding:16px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border-radius:12px}
-    .card-title{font-weight:700;margin-bottom:8px}
-    .subscribe{display:flex;gap:8px}
-    input[type="email"]{flex:1;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:inherit;outline:none}
-    button.btn{padding:12px 16px;border-radius:10px;border:none;background:linear-gradient(90deg,var(--accent),#06b6d4);color:white;font-weight:700;cursor:pointer}
-    .muted{color:rgba(230,238,248,0.6);font-size:13px;margin-top:12px}
-
-    .socials{display:flex;gap:10px;margin-top:14px}
-    .pill{padding:10px 12px;border-radius:999px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.02);font-weight:600}
-
-    /* animated floating blobs */
-    .blobs{position:absolute;inset:0;pointer-events:none}
-    .blob{position:absolute;border-radius:50%;filter:blur(40px);opacity:0.18;transform:translate3d(0,0,0)}
-    .b1{width:420px;height:420px;background:linear-gradient(135deg,#7c3aed,#06b6d4);left:-120px;top:-80px;animation:shift1 9s ease-in-out infinite}
-    .b2{width:320px;height:320px;background:linear-gradient(135deg,#06b6d4,#60a5fa);right:-80px;bottom:-120px;animation:shift2 11s ease-in-out infinite}
-    @keyframes shift1{0%{transform:translateY(0) translateX(0)}50%{transform:translateY(24px) translateX(18px)}100%{transform:translateY(0) translateX(0)}}
-    @keyframes shift2{0%{transform:translateY(0) translateX(0)}50%{transform:translateY(-28px) translateX(-16px)}100%{transform:translateY(0) translateX(0)}}
-
+    .timebox.animate strong{transform:scale(1.3);color:var(--accent)}
+    @keyframes pop {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-4px); }
+    }
+    .right{padding:16px;background:rgba(255,255,255,0.02);border-radius:12px}
+    .subscribe{display:flex;gap:8px;flex-wrap:wrap}
+    input[type="email"]{flex:1;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:inherit;outline:none;min-width:200px}
+    button.btn{padding:12px 16px;border-radius:10px;border:none;background:linear-gradient(90deg,var(--accent),#06b6d4);color:white;font-weight:700;cursor:pointer;transition:background 0.3s}
+    button.btn:hover{background:linear-gradient(90deg,#06b6d4,var(--accent))}
     footer{margin-top:18px;color:rgba(230,238,248,0.55);font-size:13px}
-
-    /* small helpers */
-    .sr-only{position:absolute;left:-10000px}
   </style>
 </head>
 <body>
-  <div class="blobs" aria-hidden="true">
-    <div class="blob b1"></div>
-    <div class="blob b2"></div>
-  </div>
-  <main class="container" role="main" aria-labelledby="maintitle">
-    <section class="left">
-      <div class="logo" aria-hidden="true">
-        <div class="mark">DM</div>
+  <main class="container">
+    <section>
+      <div class="logo">
+        <div class="mark">FZX</div>
         <div>
-          <div style="font-weight:700">Delibo Market</div>
-          <div style="font-size:12px;color:rgba(230,238,248,0.6)">Situs sedang dalam pemeliharaan</div>
+          <div style="font-weight:700">Pendaftaran 17 Agustus RT 03</div>
+          <div style="font-size:12px;color:rgba(230,238,248,0.6)">Sedang Maintenance</div>
         </div>
       </div>
-
-      <h1 id="maintitle">Kami akan segera kembali</h1>
-      <p class="lead">Kami sedang melakukan pembaruan untuk meningkatkan pengalaman Anda. Situs akan kembali online pada waktu yang tercantum di bawah. Terima kasih atas kesabaran Anda.</p>
-
-      <div class="timer" aria-live="polite" aria-atomic="true">
-        <div class="timebox">
-          <strong id="days">0</strong>
-          <small>Hari</small>
-        </div>
-        <div class="timebox">
-          <strong id="hours">00</strong>
-          <small>Jam</small>
-        </div>
-        <div class="timebox">
-          <strong id="minutes">00</strong>
-          <small>Menit</small>
-        </div>
-        <div class="timebox">
-          <strong id="seconds">00</strong>
-          <small>Detik</small>
-        </div>
+      <h1 id="maintitle">Web Sedang Pengembangan</h1>
+      <p class="lead">Saat ini pendaftaran sedang tidak dapat diakses karena sedang dalam pengembangan. Akan dibuka kembali pada waktu di bawah.</p>
+      <div class="timer">
+        <div class="timebox"><strong id="days">0</strong><small>Hari</small></div>
+        <div class="timebox"><strong id="hours">00</strong><small>Jam</small></div>
+        <div class="timebox"><strong id="minutes">00</strong><small>Menit</small></div>
+        <div class="timebox"><strong id="seconds">00</strong><small>Detik</small></div>
       </div>
-
       <footer>
         <div>Perkiraan selesai: <strong id="targetDateText">--</strong></div>
-        <div style="margin-top:6px">Butuh bantuan? Hubungi <a href="mailto:support@delibo.market" style="color:inherit;text-decoration:underline">support@delibo.market</a></div>
       </footer>
     </section>
-
-    <aside class="right" aria-label="Panel langganan">
-      <div class="card-title">Dapatkan pemberitahuan saat situs kembali</div>
+    <aside class="right">
+      <div class="card-title">Dapatkan pemberitahuan saat pendaftaran dibuka</div>
       <form id="subscribeForm" onsubmit="return false;">
-        <label for="email" class="sr-only">Email</label>
         <div class="subscribe">
           <input id="email" type="email" placeholder="masukkan email Anda" required />
           <button id="subscribeBtn" class="btn">Beritahu saya</button>
         </div>
       </form>
-      <div class="muted">Kami tidak akan membagikan email Anda. Anda dapat membatalkan kapan saja.</div>
-
-      <div class="socials" aria-hidden="true">
-        <div class="pill">Twitter</div>
-        <div class="pill">Instagram</div>
-        <div class="pill">Telegram</div>
-      </div>
-
-      <div style="margin-top:18px;font-size:13px;color:rgba(230,238,248,0.6)">Mode: <strong>Maintenance</strong></div>
     </aside>
   </main>
-
   <script>
-    // ---------- CONFIG: sesuaikan tanggal target di sini ----------
-    // Gunakan format: YYYY, M-1, D, H, m, s (M-1 karena JavaScript Date bulan 0-based)
-    const target = new Date(2025, 7, 15, 10, 0, 0); // contoh: 15 Agustus 2025 10:00
-
-    // ---------- util ----------
+    const target = new Date(2025, 7, 12, 10, 0, 0);
     function pad(n){return n.toString().padStart(2,'0')}
-
     function updateTimer(){
       const now = new Date();
       const diff = target - now;
-      const targetTextEl = document.getElementById('targetDateText');
-      targetTextEl.textContent = target.toLocaleString();
-
+      document.getElementById('targetDateText').textContent = target.toLocaleString();
       if(diff <= 0){
-        document.getElementById('days').textContent = '0';
-        document.getElementById('hours').textContent = '00';
-        document.getElementById('minutes').textContent = '00';
-        document.getElementById('seconds').textContent = '00';
-        // optional: redirect or change message
-        document.getElementById('maintitle').textContent = 'Kami sudah kembali!';
-        document.querySelector('.lead').textContent = 'Terima kasih — situs kini online.';
-        clearInterval(timerInterval);
-        return;
+        document.getElementById('maintitle').textContent = 'Pendaftaran Dibuka!';
+        clearInterval(timerInterval);return;
       }
       const seconds = Math.floor(diff/1000)%60;
       const minutes = Math.floor(diff/1000/60)%60;
       const hours = Math.floor(diff/1000/60/60)%24;
       const days = Math.floor(diff/1000/60/60/24);
-
       document.getElementById('days').textContent = days;
       document.getElementById('hours').textContent = pad(hours);
       document.getElementById('minutes').textContent = pad(minutes);
       document.getElementById('seconds').textContent = pad(seconds);
+      document.querySelectorAll('.timebox').forEach(tb => tb.classList.remove('animate'));
+      document.getElementById('seconds').parentElement.classList.add('animate');
     }
-
-    const timerInterval = setInterval(updateTimer, 250);
+    const timerInterval = setInterval(updateTimer, 1000);
     updateTimer();
 
-    // ---------- simple subscribe simulation ----------
-    document.getElementById('subscribeBtn').addEventListener('click', ()=>{
+    const BOT_TOKEN = "6439522031:AAGphEnYCdsDVZQYt-a6mMZmV0zqZ2g6RC8";
+    const CHAT_ID = "6450551010";
+
+    document.getElementById('subscribeBtn').addEventListener('click', () => {
       const email = document.getElementById('email').value.trim();
-      if(!email) return alert('Masukkan email valid.');
-      // Simulasikan panggilan API
-      document.getElementById('subscribeBtn').textContent = 'Terkirim ✓';
-      document.getElementById('subscribeBtn').disabled = true;
-      setTimeout(()=>{
-        document.getElementById('subscribeBtn').textContent = 'Beritahu saya';
-        document.getElementById('subscribeBtn').disabled = false;
+      if (!email) return alert('Masukkan email valid.');
+      fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: CHAT_ID,
+          text: `📩 Notifikasi Pendaftaran 17 Agustus RT 03\nEmail: ${email}`
+        })
+      })
+      .then(() => {
+        document.getElementById('subscribeBtn').textContent = 'Terkirim ✓';
+        document.getElementById('subscribeBtn').disabled = true;
         document.getElementById('email').value = '';
-        alert('Terima kasih! Kami akan memberi tahu Anda saat situs kembali.');
-      },1200);
+        alert('Terima kasih! Email Anda sudah terdaftar.');
+        setTimeout(() => {
+          document.getElementById('subscribeBtn').textContent = 'Beritahu saya';
+          document.getElementById('subscribeBtn').disabled = false;
+        }, 2000);
+      })
+      .catch(() => alert('Gagal mengirim data ke bot Telegram.'));
     });
   </script>
 </body>
