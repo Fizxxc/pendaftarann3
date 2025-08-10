@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Pendaftaran Ditutup — 17 Agustus RT 03</title>
+  <style>
+    :root{
+      --red:#d62828;
+      --dark:#0b1220;
+      --white:#ffffff;
+      --glass: rgba(255,255,255,0.06);
+      --accent:#ffc9c9;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      background: linear-gradient(180deg,var(--dark) 0%, #101827 50%);
+      color:var(--white);display:flex;align-items:center;justify-content:center;padding:24px;
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      overflow:hidden;
+    }
+    .flag-wrap{position:absolute;left:0;top:0;pointer-events:none}
+    .flag{width:220px;height:60px;display:flex;flex-direction:row}
+    .flag > span{flex:1}
+    .flag .red{background:var(--red)}
+    .flag .white{background:var(--white)}
+    .flag-wrap{transform:translate(-40px,-20px) rotate(-12deg);opacity:0.95}
+    .card{width:100%;max-width:1100px;border-radius:18px;padding:28px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-shadow:0 12px 40px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.04);display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center}
+    @media (max-width:980px){.card{grid-template-columns:1fr}}
+    .brand{display:flex;align-items:center;gap:14px}
+    .logo{width:64px;height:64px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:800;background:linear-gradient(135deg,var(--red),#b91c1c);box-shadow:0 8px 30px rgba(214,40,40,0.12)}
+    h1{margin:14px 0 6px;font-size:28px;letter-spacing:-0.02em}
+    p.lead{margin:0;color:rgba(255,255,255,0.88);max-width:62ch}
+    .status{display:inline-flex;gap:8px;align-items:center;margin-top:12px}
+    .badge{background:var(--glass);padding:8px 10px;border-radius:999px;font-weight:700;font-size:13px;border:1px solid rgba(255,255,255,0.04)}
+    .badge.closed{color:var(--red);background:rgba(214,40,40,0.08)}
+    .countdown{display:flex;gap:12px;margin-top:20px;flex-wrap:wrap}
+    .unit{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:12px;min-width:84px;text-align:center;border:1px solid rgba(255,255,255,0.03);position:relative;overflow:hidden}
+    .unit .num{font-size:22px;font-weight:800;display:block}
+    .unit small{display:block;margin-top:6px;font-size:12px;color:rgba(255,255,255,0.75)}
+    .side{padding:20px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border:1px solid rgba(255,255,255,0.03)}
+    .side h3{margin:0 0 6px}
+    .muted{color:rgba(255,255,255,0.7);font-size:14px}
+    .cta{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap}
+    .btn{padding:12px 16px;border-radius:10px;border:none;font-weight:700;cursor:pointer}
+    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--white)}
+    .btn.primary{background:linear-gradient(90deg,var(--red),#b91c1c);color:var(--white);box-shadow:0 8px 20px rgba(185,28,28,0.12)}
+    .ribbon{position:absolute;right:-60px;bottom:-40px;width:300px;height:300px;pointer-events:none;opacity:0.9}
+    .ribbon svg{width:100%;height:100%}
+    .meta{margin-top:12px;font-size:13px;color:rgba(255,255,255,0.75)}
+    @media (max-width:480px){h1{font-size:20px}.unit{min-width:64px;padding:12px}.logo{width:52px;height:52px}}
+    .unit{animation:floaty 3s ease-in-out infinite}
+    .unit:nth-child(2){animation-delay:.15s}
+    .unit:nth-child(3){animation-delay:.3s}
+    .unit:nth-child(4){animation-delay:.45s}
+    @keyframes floaty{0%{transform:translateY(0)}50%{transform:translateY(-6px)}100%{transform:translateY(0)}}
+  </style>
+</head>
+<body>
+  <div class="flag-wrap" aria-hidden="true">
+    <div class="flag"><span class="red"></span><span class="white"></span></div>
+  </div>
+
+  <main class="card" role="main" aria-labelledby="title">
+    <section>
+      <div class="brand">
+        <div class="logo">17</div>
+        <div>
+          <div style="font-weight:700">Pendaftaran 17 Agustus — RT 03</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.75)">Pengumuman Resmi</div>
+        </div>
+      </div>
+
+      <h1 id="title">Pendaftaran Sudah Ditutup</h1>
+      <p class="lead">Terima kasih atas antusiasme warga RT 03. Pendaftaran untuk kegiatan 17 Agustus telah resmi ditutup.</p>
+
+      <div class="status">
+        <div class="badge closed">STATUS: DITUTUP</div>
+        <div class="badge">Peserta terdaftar: <strong id="countRegistered">--</strong></div>
+      </div>
+
+      <div class="countdown">
+        <div class="unit"><span class="num" id="days">0</span><small>Hari</small></div>
+        <div class="unit"><span class="num" id="hours">00</span><small>Jam</small></div>
+        <div class="unit"><span class="num" id="minutes">00</span><small>Menit</small></div>
+        <div class="unit"><span class="num" id="seconds">00</span><small>Detik</small></div>
+      </div>
+
+      <div class="meta">Pendaftaran ditutup pada: <strong id="closedAtText">--</strong></div>
+    </section>
+
+    <aside class="side">
+      <h3>Yang Perlu Diketahui</h3>
+      <p class="muted">Jika Anda memiliki pertanyaan, hubungi panitia RT.</p>
+      <div class="cta">
+        <button class="btn primary" id="contactBtn">Hubungi Panitia (Telegram)</button>
+      </div>
+      <div style="margin-top:12px;font-size:13px;color:rgba(255,255,255,0.75)">Acara dimulai pada: <strong id="eventAtText">--</strong></div>
+      <div style="margin-top:18px;color:rgba(255,255,255,0.6);font-size:13px">© RT 03 • 17 Agustus</div>
+    </aside>
+
+    <div class="ribbon" aria-hidden="true">
+      <svg viewBox="0 0 600 600"><defs><linearGradient id="g1" x1="0" x2="1"><stop offset="0%" stop-color="#fff" stop-opacity="0.95"/><stop offset="100%" stop-color="#ff0000" stop-opacity="0.95"/></linearGradient></defs><path d="M300 10 C 420 50, 520 150, 580 220 L 540 260 C480 200, 420 180, 300 220 C180 260, 140 300, 60 340 L20 300 C80 240,180 100,300 10Z" fill="url(#g1)" opacity="0.9"/></svg>
+    </div>
+  </main>
+
+  <!-- SweetAlert -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+  <script>
+    const closedAt = new Date(2025, 7, 10, 20, 0, 0);
+    const eventAt = new Date(2025, 7, 17, 8, 0, 0);
+    const pad = n => n.toString().padStart(2,'0');
+
+    function formatDate(d){
+      return d.toLocaleString('id-ID',{day:'2-digit',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'});
+    }
+    document.getElementById('closedAtText').textContent = formatDate(closedAt);
+    document.getElementById('eventAtText').textContent = formatDate(eventAt);
+
+    function updateCountdown(){
+      const now = new Date();
+      let diff = eventAt - now;
+      if(diff<=0){['days','hours','minutes','seconds'].forEach(id=>document.getElementById(id).textContent='00');return;}
+      const s = Math.floor(diff/1000)%60;
+      const m = Math.floor(diff/1000/60)%60;
+      const h = Math.floor(diff/1000/60/60)%24;
+      const d = Math.floor(diff/1000/60/60/24);
+      document.getElementById('days').textContent = d;
+      document.getElementById('hours').textContent = pad(h);
+      document.getElementById('minutes').textContent = pad(m);
+      document.getElementById('seconds').textContent = pad(s);
+    }
+    setInterval(updateCountdown,1000);
+    updateCountdown();
+
+    // Firebase config
+  const firebaseConfig = {
+  apiKey: "AIzaSyCSKBHxE8YIDFsEW-8TpGSOHuZJ5CliIkg",
+  authDomain: "fingerpinauth.firebaseapp.com",
+  databaseURL: "https://fingerpinauth-default-rtdb.firebaseio.com",
+  projectId: "fingerpinauth",
+  storageBucket: "fingerpinauth.appspot.com", // Diperbaiki: sebelumnya `firebasestorage.app`, seharusnya `.appspot.com`
+  messagingSenderId: "395896869935",
+  appId: "1:395896869935:web:f05223a2c140bd88d662da",
+  measurementId: "G-6S5NHHLFW0"
+};
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    const pesertaRef = db.ref("pendaftaran17agustus");
+    pesertaRef.on("value", (snap) => {
+      const data = snap.val() || {};
+      const total = Object.keys(data).length;
+      document.getElementById("countRegistered").textContent = total;
+
+      if (window._lastCount !== undefined && total > window._lastCount) {
+        new Audio("/notif.mp3").play();
+        Swal.fire({title:'Peserta Baru!',text:'Ada pendaftar baru.',icon:'success',timer:2000,showConfirmButton:false});
+      }
+      window._lastCount = total;
+    });
+
+    document.getElementById('contactBtn').onclick = ()=> window.open('https://t.me/username_panitia','_blank');
+  </script>
+</body>
+</html>

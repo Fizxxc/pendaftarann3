@@ -1,42 +1,51 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pendaftaran 17 Agustus RT 03</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <style>
     body {
-  position: relative;
-  min-height: 100vh;
-  margin: 0;
-  overflow: hidden;
-}
+      position: relative;
+      min-height: 100vh;
+      margin: 0;
+      overflow: hidden;
+    }
 
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: url('logo.png') no-repeat center center / cover;
-  filter: blur(8px);
-  z-index: -1; /* supaya di belakang konten */
-}
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('logo.png') no-repeat center center / cover;
+      filter: blur(8px);
+      z-index: -1;
+      /* supaya di belakang konten */
+    }
+
     .glass {
       background: rgba(255, 255, 255, 0.85);
       backdrop-filter: blur(10px);
     }
   </style>
 </head>
+
 <body class="min-h-screen flex items-center justify-center px-4">
 
   <div class="glass p-8 rounded-xl shadow-2xl w-full max-w-lg text-gray-800">
     <div class="text-center mb-6">
       <h1 class="text-3xl font-bold text-red-600">Form Pendaftaran 17 Agustus RT 03 🇮🇩</h1>
       <p class="text-black mt-2">Silakan isi formulir untuk mengikuti lomba</p>
+      <div class="text-center mb-4">
+        <div class="inline-block bg-red-600 text-white px-4 py-2 rounded-full shadow-md">
+          Peserta Terdaftar: <strong id="countRegistered">0</strong>
+        </div>
+      </div>
     </div>
 
     <form id="formDaftar" class="space-y-4">
@@ -64,13 +73,11 @@ body::before {
       </div>
       <div>
         <label class="block font-medium text-black">No. WhatsApp <b>(Nomor ortu jika anak-anak)</b></label>
-        <input id="wa" type="tel" required
-          class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500" />
+        <input id="wa" type="tel" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500" />
       </div>
       <div>
         <label class="block font-medium text-black">Pilih Lomba</label>
-        <select id="lomba" required
-          class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500">
+        <select id="lomba" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500">
           <option value="">-- Pilih Lomba Sesuai Kelas Kalian --</option>
         </select>
       </div>
@@ -78,7 +85,7 @@ body::before {
         class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2 rounded-lg transition-all duration-200">
         Daftar Sekarang
       </button>
-            <div class="mt-6 text-sm text-center text-red-800 animate-fade-in delay-700">
+      <div class="mt-6 text-sm text-center text-red-800 animate-fade-in delay-700">
         &copy; 2025 Pendaftaran 17 Agustus RT 03<br />
         Developed by: <a href="https://www.instagram.com/fizzx.docx/"
           class="text-blue-800 hover:underline"><b>FizzxDevv</b></a>
@@ -86,122 +93,130 @@ body::before {
     </form>
   </div>
 
-<script type="module">
-  import { db, ref, push, set } from './firebase.js';
+  <script type="module">
+    import { db, ref, push, set, onValue } from './firebase.js';
 
-  const form = document.getElementById('formDaftar');
-  const kelasSelect = document.getElementById('kelas');
-  const subkelasContainer = document.getElementById('subkelas-container');
-  const subkelasSelect = document.getElementById('subkelas');
-  const lombaSelect = document.getElementById('lomba');
+    const form = document.getElementById('formDaftar');
+    const kelasSelect = document.getElementById('kelas');
+    const subkelasContainer = document.getElementById('subkelas-container');
+    const subkelasSelect = document.getElementById('subkelas');
+    const lombaSelect = document.getElementById('lomba');
 
-  const subkelasOptions = {
-    SD: ['SD 1', 'SD 2', 'SD 3', 'SD 4', 'SD 5', 'SD 6'],
-    SMP: ['SMP 7', 'SMP 8', 'SMP 9'],
-    'SMA/SMK': ['SMA/SMK 10', 'SMA/SMK 11', 'SMA/SMK 12'],
-    UMUM: ['Mahasiswa', 'Bapak-Bapak', 'Ibu-Ibu']
-  };
+    const subkelasOptions = {
+      SD: ['SD 1', 'SD 2', 'SD 3', 'SD 4', 'SD 5', 'SD 6'],
+      SMP: ['SMP 7', 'SMP 8', 'SMP 9'],
+      'SMA/SMK': ['SMA/SMK 10', 'SMA/SMK 11', 'SMA/SMK 12'],
+      UMUM: ['Mahasiswa', 'Bapak-Bapak', 'Ibu-Ibu']
+    };
 
-  const lombaByKelas = {
-    TK: ['Lomba Memindahkan Bendera', 'Lomba Klereng', 'Lomba Nyusun Bangun Datar'],
-    SD: ['Lomba Klereng (Digigit)', 'Lomba Strategi Memindahkan Gelas', 'Lomba giring Baskom dengan Botol', '*NOTE: Lomba di atas untuk kelas 1-2 SD', 'Lomba Bawa Air Di Gelas Plastik', 'Lomba Makan Kerupuk', 'Lomba Mindahin Karet', '*NOTE: Lomba di atas untuk kelas 3-4 SD', 'Lomba Masukin Sedotan Menggunakan Hidung', 'Lomba Mindahin Karet', 'Lomba nyuapin kerupuk ke temennya', '*NOTE: Lomba di atas untuk kelas 5-6 SD'],
-    SMP: ['Suit Geser', 'Jalan Pakai Balok Kayu', 'Lomba Mindahin Karet'],
-    'SMA/SMK': ['Suit Geser', 'Jalan Pakai Balok Kayu'],
-    UMUM: ['Masukin Balon Ke Gelas', 'Estapet Tepung']
-  };
+    const lombaByKelas = {
+      TK: ['Lomba Memindahkan Bendera', 'Lomba Klereng', 'Lomba Nyusun Bangun Datar'],
+      SD: ['Lomba Klereng (Digigit)', 'Lomba Strategi Memindahkan Gelas', 'Lomba giring Baskom dengan Botol', '*NOTE: Lomba di atas untuk kelas 1-2 SD', 'Lomba Bawa Air Di Gelas Plastik', 'Lomba Makan Kerupuk', 'Lomba Mindahin Karet', '*NOTE: Lomba di atas untuk kelas 3-4 SD', 'Lomba Masukin Sedotan Menggunakan Hidung', 'Lomba Mindahin Karet', 'Lomba nyuapin kerupuk ke temennya', '*NOTE: Lomba di atas untuk kelas 5-6 SD'],
+      SMP: ['Suit Geser', 'Jalan Pakai Balok Kayu', 'Lomba Mindahin Karet'],
+      'SMA/SMK': ['Suit Geser', 'Jalan Pakai Balok Kayu'],
+      UMUM: ['Masukin Balon Ke Gelas', 'Estapet Tepung']
+    };
 
-  function updateLomba(kelas) {
-    const daftarLomba = lombaByKelas[kelas] || [];
-    lombaSelect.innerHTML = `<option value="">-- Pilih Lomba --</option>` +
-      daftarLomba.map(l => `<option>${l}</option>`).join('');
-  }
-
-  kelasSelect.addEventListener('change', () => {
-    const selected = kelasSelect.value;
-
-    if (subkelasOptions[selected]) {
-      subkelasContainer.classList.remove('hidden');
-      subkelasSelect.innerHTML = `<option value="">-- Pilih Sub Kelas --</option>` +
-        subkelasOptions[selected].map(k => `<option>${k}</option>`).join('');
-    } else {
-      subkelasContainer.classList.add('hidden');
-      subkelasSelect.innerHTML = '';
+    function updateLomba(kelas) {
+      const daftarLomba = lombaByKelas[kelas] || [];
+      lombaSelect.innerHTML = `<option value="">-- Pilih Lomba --</option>` +
+        daftarLomba.map(l => `<option>${l}</option>`).join('');
     }
 
-    updateLomba(selected);
-  });
+    kelasSelect.addEventListener('change', () => {
+      const selected = kelasSelect.value;
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
+      if (subkelasOptions[selected]) {
+        subkelasContainer.classList.remove('hidden');
+        subkelasSelect.innerHTML = `<option value="">-- Pilih Sub Kelas --</option>` +
+          subkelasOptions[selected].map(k => `<option>${k}</option>`).join('');
+      } else {
+        subkelasContainer.classList.add('hidden');
+        subkelasSelect.innerHTML = '';
+      }
 
-    const nama = document.getElementById('nama').value.trim();
-    const kelasUtama = kelasSelect.value;
-    const subkelas = subkelasSelect.value;
-    const wa = document.getElementById('wa').value.trim();
-    const lomba = lombaSelect.value;
+      updateLomba(selected);
+    });
 
-    const kelasFinal = subkelas || kelasUtama;
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
 
-    if (!nama || !kelasFinal || !wa || !lomba) {
-      return Swal.fire({
-        icon: 'warning',
-        title: 'Lengkapi semua isian!',
-        toast: true,
-        position: 'top-end',
-        timer: 2500,
-        showConfirmButton: false
-      });
-    }
+      const nama = document.getElementById('nama').value.trim();
+      const kelasUtama = kelasSelect.value;
+      const subkelas = subkelasSelect.value;
+      const wa = document.getElementById('wa').value.trim();
+      const lomba = lombaSelect.value;
 
-    try {
-      const daftarRef = ref(db, 'pendaftaran17agustus');
-      const newRef = push(daftarRef);
-      await set(newRef, { nama, kelas: kelasFinal, wa, lomba });
+      const kelasFinal = subkelas || kelasUtama;
 
-      Swal.fire({
-        icon: 'success',
-        title: 'Berhasil mendaftar!',
-        text: 'Kami akan menghubungi kamu via WhatsApp.',
-        toast: true,
-        position: 'top-end',
-        timer: 3000,
-        showConfirmButton: false
-      });
+      if (!nama || !kelasFinal || !wa || !lomba) {
+        return Swal.fire({
+          icon: 'warning',
+          title: 'Lengkapi semua isian!',
+          toast: true,
+          position: 'top-end',
+          timer: 2500,
+          showConfirmButton: false
+        });
+      }
 
-      form.reset();
-      subkelasContainer.classList.add('hidden');
-      lombaSelect.innerHTML = `<option value="">-- Pilih Lomba --</option>`;
-    } catch (err) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Gagal menyimpan data',
-        text: err.message,
-        toast: true,
-        position: 'top-end',
-        timer: 3000,
-        showConfirmButton: false
-      });
-    }
-  });
+      try {
+        const daftarRef = ref(db, 'pendaftaran17agustus');
+        const newRef = push(daftarRef);
+        await set(newRef, { nama, kelas: kelasFinal, wa, lomba });
 
-  document.addEventListener("DOMContentLoaded", () => {
-  // Cek supaya hanya muncul sekali per sesi
-  if (!sessionStorage.getItem("welcomeFormShown")) {
-    Swal.fire({
-      title: '🎉 Selamat Datang!',
-      html: `
+        Swal.fire({
+          icon: 'success',
+          title: 'Berhasil mendaftar!',
+          text: 'Kami akan menghubungi kamu via WhatsApp.',
+          toast: true,
+          position: 'top-end',
+          timer: 3000,
+          showConfirmButton: false
+        });
+
+        form.reset();
+        subkelasContainer.classList.add('hidden');
+        lombaSelect.innerHTML = `<option value="">-- Pilih Lomba --</option>`;
+      } catch (err) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Gagal menyimpan data',
+          text: err.message,
+          toast: true,
+          position: 'top-end',
+          timer: 3000,
+          showConfirmButton: false
+        });
+      }
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+      // Cek supaya hanya muncul sekali per sesi
+      if (!sessionStorage.getItem("welcomeFormShown")) {
+        Swal.fire({
+          title: '🎉 Selamat Datang!',
+          html: `
         <p>Terima kasih telah berpartisipasi dalam lomba <b>17 Agustus RT 03</b> 🎊</p>
         <p>Silakan isi formulir pendaftaran dengan lengkap dan benar yaaa.</p>
       `,
-      icon: 'info',
-      confirmButtonText: 'Siap min!',
-      confirmButtonColor: '#e11d48',
-      background: '#fff'
+          icon: 'info',
+          confirmButtonText: 'Siap min!',
+          confirmButtonColor: '#e11d48',
+          background: '#fff'
+        });
+        // Supaya tidak muncul lagi selama sesi
+        sessionStorage.setItem("welcomeFormShown", "true");
+      }
     });
-    // Supaya tidak muncul lagi selama sesi
-    sessionStorage.setItem("welcomeFormShown", "true");
-  }
-});
-</script>
+    const countEl = document.getElementById('countRegistered');
+
+    onValue(ref(db, 'pendaftaran17agustus'), (snapshot) => {
+      const data = snapshot.val();
+      const total = data ? Object.keys(data).length : 0;
+      countEl.textContent = total;
+    });
+  </script>
 </body>
+
 </html>

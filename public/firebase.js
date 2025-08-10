@@ -1,6 +1,6 @@
 // firebase.js (gunakan ES module CDN)
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js";
+import { getDatabase, ref, push, set, onValue } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js";
 
 // Konfigurasi Firebase
 const firebaseConfig = {
@@ -19,4 +19,4 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
 // ✅ Export untuk digunakan di file lain
-export { app, db, ref, push, set };
+export { app, db, ref, push, set, onValue };
