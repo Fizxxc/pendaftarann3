@@ -8,9 +8,23 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <style>
     body {
-      background: url('logo.png') no-repeat center center/cover;
-    }
+  position: relative;
+  min-height: 100vh;
+  margin: 0;
+  overflow: hidden;
+}
 
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('logo.png') no-repeat center center / cover;
+  filter: blur(8px);
+  z-index: -1; /* supaya di belakang konten */
+}
     .glass {
       background: rgba(255, 255, 255, 0.85);
       backdrop-filter: blur(10px);
@@ -57,11 +71,7 @@
         <label class="block font-medium text-black">Pilih Lomba</label>
         <select id="lomba" required
           class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500">
-          <option value="">-- Pilih Lomba --</option>
-          <option>Balap Karung</option>
-          <option>Tarik Tambang</option>
-          <option>Makan Kerupuk</option>
-          <option>Lomba Anak-anak</option>
+          <option value="">-- Pilih Lomba Sesuai Kelas Kalian --</option>
         </select>
       </div>
       <button type="submit"
@@ -71,7 +81,7 @@
             <div class="mt-6 text-sm text-center text-red-800 animate-fade-in delay-700">
         &copy; 2025 Pendaftaran 17 Agustus RT 03<br />
         Developed by: <a href="https://www.instagram.com/fizzx.docx/"
-          class="text-blue-800 hover:underline">FizzxDevv</a>
+          class="text-blue-800 hover:underline"><b>FizzxDevv</b></a>
       </div>
     </form>
   </div>
@@ -173,6 +183,25 @@
       });
     }
   });
+
+  document.addEventListener("DOMContentLoaded", () => {
+  // Cek supaya hanya muncul sekali per sesi
+  if (!sessionStorage.getItem("welcomeFormShown")) {
+    Swal.fire({
+      title: '🎉 Selamat Datang!',
+      html: `
+        <p>Terima kasih telah berpartisipasi dalam lomba <b>17 Agustus RT 03</b> 🎊</p>
+        <p>Silakan isi formulir pendaftaran dengan lengkap dan benar yaaa.</p>
+      `,
+      icon: 'info',
+      confirmButtonText: 'Siap min!',
+      confirmButtonColor: '#e11d48',
+      background: '#fff'
+    });
+    // Supaya tidak muncul lagi selama sesi
+    sessionStorage.setItem("welcomeFormShown", "true");
+  }
+});
 </script>
 </body>
 </html>

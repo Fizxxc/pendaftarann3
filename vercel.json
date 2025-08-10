@@ -6,7 +6,8 @@
     { "source": "/login", "destination": "/login.html" },
     { "source": "/home", "destination": "/info.html" },
     { "source": "/admin", "destination": "/admin.html" },
-    { "source": "/form", "destination": "/form.html" }
+    { "source": "/form", "destination": "/form.html" },
+    { "source": "/daftarr", "destination": "/register-admin.html" }
   ],
   "cleanUrls": true,
   "trailingSlash": false,
